@@ -1,5 +1,6 @@
 import express from 'express';
-import * as dotenv from 'dotenv';
+import * as dotenv from 'dotenv'; 
+dotenv.config();
 import fetch from 'node-fetch';
 import { body, validationResult } from 'express-validator';
 
@@ -33,7 +34,7 @@ router.route('/').post(
       const { prompt } = req.body;
       console.log('Generating image for prompt:', prompt);
 
-    const imageUrl = `https://pollinations.ai/p/${encodeURIComponent(prompt)}?width=1024&height=1024&seed=42&model=flux`;
+    const imageUrl = `https://pollinations.ai/p/${encodeURIComponent(prompt)}?width=1024&height=1024&seed=42&model=flux&api_key=${process.env.OPENAI_API_KEY}`;
 
     const response = await fetch(imageUrl);
     const buffer = await response.buffer();
